@@ -75,6 +75,8 @@ export default function HomePage() {
               <p className="text-xs text-muted">I will assume 2 travelers if you do not say otherwise.</p>
               <button
                 type="submit"
+                id="build-workspace"
+                data-testid="build-workspace"
                 className="inline-flex items-center gap-2 rounded-full bg-clay px-4 py-2 text-sm font-semibold text-paper hover:bg-clay-deep"
               >
                 Build the workspace <ArrowRight className="h-4 w-4" />

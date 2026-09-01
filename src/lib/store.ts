@@ -139,6 +139,7 @@ export const useVoyage = create<VoyageState>()(
         messages: state.messages,
         proposals: state.proposals,
       }),
+      skipHydration: true,
     },
   ),
 );

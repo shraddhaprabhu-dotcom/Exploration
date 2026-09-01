@@ -34,4 +34,17 @@ describe("handleAgentMessage", () => {
     expect(relax.proposal).toBeTruthy();
     expect(relax.mutations).toHaveLength(0);
   });
+
+  it("does not propose dropping airport or transfer days when relaxing", () => {
+    const seed = emptyTrip({ preferences: ["hiking"] });
+    const built = handleAgentMessage(seed, "Let’s do Slovenia");
+    if (built.mutations[0].type !== "replace_trip") throw new Error("expected trip");
+    const trip = built.mutations[0].trip;
+    const relax = handleAgentMessage(trip, "Make this trip more relaxed");
+    const removed = relax.proposal?.actions.filter((a) => a.apply.type === "remove_item") ?? [];
+    const removedIds = new Set(removed.map((a) => (a.apply.type === "remove_item" ? a.apply.itemId : "")));
+    const removedItems = trip.itinerary.filter((i) => removedIds.has(i.id));
+    expect(removedItems.every((i) => i.category !== "transport")).toBe(true);
+    expect(removedItems.some((i) => /vintgar|day trip|palace/i.test(i.title))).toBe(true);
+  });
 });

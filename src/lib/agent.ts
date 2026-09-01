@@ -201,7 +201,7 @@ function buildFromPack(trip: Trip | null, pack: DestinationPack, text: string, n
     origin: parseOrigin(text) ?? trip?.origin,
     budgetCap: parseBudgetCap(text) ?? trip?.budgetCap,
     currency: pack.currency,
-    preferences: unique([...(trip?.preferences ?? []), ...extractPreferences(text), ...pack.matchTags.slice(0, 4)]),
+    preferences: unique([...(trip?.preferences ?? []), ...extractPreferences(text)]),
   });
 
   const preview = applyMutations(trip ?? built, [{ type: "replace_trip", trip: built }]);
@@ -239,10 +239,23 @@ Nothing in this plan is booked. Recommended stays and trains are placeholders yo
   };
 }
 
+function isEssential(item: Trip["itinerary"][number]): boolean {
+  return (
+    item.category === "transport" ||
+    /arrive|depart|fly out|airport|check-in|check in/i.test(item.title)
+  );
+}
+
 function relaxTrip(trip: Trip): AgentResponse {
-  const drop = trip.itinerary.filter((i) => /hallstatt|day trip|palace \+|three/i.test(i.title) || (i.travelTimeMinutes ?? 0) > 140);
+  const drop = trip.itinerary.filter(
+    (i) =>
+      !isEssential(i) &&
+      (/hallstatt|day trip|palace \+|vintgar|full day/i.test(i.title) || (i.travelTimeMinutes ?? 0) > 140),
+  );
   if (!drop.length) {
-    const busy = [...trip.itinerary].sort((a, b) => (b.travelTimeMinutes ?? 0) - (a.travelTimeMinutes ?? 0))[0];
+    const busy = [...trip.itinerary]
+      .filter((i) => !isEssential(i) && i.category === "activity")
+      .sort((a, b) => (b.travelTimeMinutes ?? 0) - (a.travelTimeMinutes ?? 0))[0];
     if (!busy) {
       return { message: "The days are already fairly open. I would not strip more without turning this into a sofa trip.", mutations: [] };
     }

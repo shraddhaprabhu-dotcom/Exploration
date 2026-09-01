@@ -95,6 +95,7 @@ export function AgentPanel({
             <div className="mt-3 flex gap-2">
               <button
                 type="button"
+                data-testid="apply-changes"
                 onClick={() => applyProposal(tripId)}
                 className="rounded-full bg-forest px-3 py-1.5 text-xs font-semibold text-paper"
               >
@@ -130,6 +131,7 @@ export function AgentPanel({
         ) : null}
         <form onSubmit={onSubmit} className="flex items-end gap-2">
           <textarea
+            data-testid="agent-input"
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
             onKeyDown={(e) => {
@@ -144,6 +146,7 @@ export function AgentPanel({
           />
           <button
             type="submit"
+            data-testid="agent-send"
             className="flex h-10 w-10 items-center justify-center rounded-full bg-clay text-paper hover:bg-clay-deep"
             aria-label="Send"
           >
