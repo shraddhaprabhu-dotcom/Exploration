@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: var(--font-fraunces), "Times New Roman", serif;
+  --font-sans: var(--font-figtree), "Helvetica Neue", sans-serif;
+
+  --color-ink: #1c1914;
+  --color-ink-soft: #4a4338;
+  --color-muted: #7a7164;
+  --color-line: #ddd4c4;
+  --color-paper: #fffaf2;
+  --color-canvas: #efe6d6;
+  --color-sand: #e7dcc8;
+  --color-clay: #b8431f;
+  --color-clay-deep: #8d3014;
+  --color-forest: #2f4a3c;
+  --color-moss: #5c7a62;
+  --color-gold: #c4a35a;
+  --color-sea: #2c5f6e;
+  --color-warn: #9a4a12;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  color: var(--color-ink);
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(184, 67, 31, 0.08), transparent 50%),
+    radial-gradient(900px 500px at 100% 0%, rgba(47, 74, 60, 0.08), transparent 45%),
+    var(--color-canvas);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: #e8c4b4;
+}
+
+.grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+}
+
+.paper {
+  background: var(--color-paper);
+  box-shadow:
+    0 1px 0 rgba(28, 25, 20, 0.04),
+    0 18px 40px -24px rgba(28, 25, 20, 0.35);
+}
+
+.display {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+}
+
+.timeline-rail {
+  background: linear-gradient(to bottom, transparent, var(--color-line) 12%, var(--color-line) 88%, transparent);
+}
+
+.prose-agent p {
+  margin: 0 0 0.75rem;
+}
+
+.prose-agent p:last-child {
+  margin-bottom: 0;
+}
+
+.prose-agent strong {
+  color: var(--color-ink);
+  font-weight: 650;
+}
+
+.prose-agent ul {
+  margin: 0.4rem 0 0.8rem;
+  padding-left: 1.1rem;
+}
+
+.prose-agent li {
+  margin: 0.2rem 0;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rise {
+  animation: rise 0.45s ease both;
+}
