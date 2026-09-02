@@ -17,7 +17,7 @@ Open [http://localhost:3000](http://localhost:3000).
 
 1. On the home page, keep the Europe / November example (or write your own).
 2. Choose one of the three destinations the agent proposes.
-3. Switch Overview → Itinerary → Transport → Stays → Budget.
+3. Switch Overview → Itinerary → Map → Transport → Stays → Budget.
 4. Ask the agent: “Make this trip more relaxed”, “Find a cheaper hotel”, or “It’s going to rain — fix the hike.”
 5. Review the proposed change, then apply it. Bookings are never implied.
 

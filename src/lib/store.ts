@@ -10,6 +10,7 @@ import { uid } from "./ids";
 type Tab =
   | "overview"
   | "itinerary"
+  | "map"
   | "transport"
   | "stays"
   | "places"

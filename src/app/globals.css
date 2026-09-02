@@ -94,3 +94,31 @@ body {
 .rise {
   animation: rise 0.45s ease both;
 }
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+  background: #e7efe6;
+  font-family: var(--font-sans);
+}
+
+.voyage-pin {
+  background: none !important;
+  border: none !important;
+}
+
+.leaflet-tooltip {
+  background: var(--color-paper);
+  border: 0;
+  border-radius: 10px;
+  box-shadow: 0 10px 24px -16px rgba(28, 25, 20, 0.5);
+  color: var(--color-ink);
+  font-size: 12px;
+  padding: 6px 8px;
+}
+
+.leaflet-control-attribution {
+  background: rgba(255, 250, 242, 0.88) !important;
+  color: var(--color-muted);
+  font-size: 10px;
+}

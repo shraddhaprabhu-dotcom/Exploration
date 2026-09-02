@@ -15,11 +15,13 @@ import {
   StaysPanel,
   TransportPanel,
 } from "./panels";
+import { MapPanel } from "./map-panel";
 import { TripBadge } from "./status-badge";
 
 const TABS = [
   { id: "overview", label: "Overview" },
   { id: "itinerary", label: "Itinerary" },
+  { id: "map", label: "Map" },
   { id: "transport", label: "Flights & transport" },
   { id: "stays", label: "Stays" },
   { id: "places", label: "Places" },
@@ -111,6 +113,7 @@ export function Workspace() {
         <main className="min-w-0 px-4 py-6 lg:px-8">
           {tab === "overview" ? <OverviewPanel trip={trip} /> : null}
           {tab === "itinerary" ? <ItineraryPanel trip={trip} /> : null}
+          {tab === "map" ? <MapPanel trip={trip} /> : null}
           {tab === "transport" ? <TransportPanel trip={trip} /> : null}
           {tab === "stays" ? <StaysPanel trip={trip} /> : null}
           {tab === "places" ? <PlacesPanel trip={trip} /> : null}

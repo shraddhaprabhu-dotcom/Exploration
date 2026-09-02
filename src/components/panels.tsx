@@ -16,6 +16,9 @@ import type { ItineraryItem, Trip } from "@/lib/types";
 import { bookedCount, budgetTotals, formatDate, formatRange, money, transportLabel, tripLengthLabel } from "@/lib/format";
 import { detectInsights, nextActions } from "@/lib/insights";
 import { BookingBadge, InsightMark, TripBadge } from "./status-badge";
+import { MapPanel } from "./map-panel";
+import { useVoyage } from "@/lib/store";
+import { itineraryStops } from "@/lib/geo";
 
 export function OverviewPanel({ trip }: { trip: Trip }) {
   const insights = detectInsights(trip);
@@ -23,6 +26,8 @@ export function OverviewPanel({ trip }: { trip: Trip }) {
   const totals = budgetTotals(trip);
   const booking = bookedCount(trip);
   const today = trip.startDate ? trip.itinerary.filter((i) => i.date === trip.startDate) : [];
+  const setTab = useVoyage((s) => s.setTab);
+  const hasMap = itineraryStops(trip).length > 0 || trip.stays.length > 0;
 
   return (
     <div className="space-y-6">
@@ -92,6 +97,22 @@ export function OverviewPanel({ trip }: { trip: Trip }) {
           hint={`${booking.open} still recommended or pending`}
         />
       </div>
+
+      {hasMap ? (
+        <section>
+          <div className="mb-3 flex items-center justify-between gap-3">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-muted">Route on the map</h3>
+            <button
+              type="button"
+              onClick={() => setTab("map")}
+              className="text-xs font-semibold text-forest hover:underline"
+            >
+              Open full map
+            </button>
+          </div>
+          <MapPanel trip={trip} compact />
+        </section>
+      ) : null}
 
       <section className="grid gap-4 lg:grid-cols-2">
         <div className="paper rounded-3xl p-5">
